@@ -1,0 +1,54 @@
+﻿@model IList<Cafe.Models.BookingForm>
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    int totalP = Convert.ToInt32(TempData["TotalPage"]);
+    int currentP = Convert.ToInt32(TempData["CurrentPage"]);
+    int start = 1;
+    int end = 5;
+    if (totalP < end) { end = totalP; }
+    if (currentP > 3 && (currentP + 2) <= totalP) { start = currentP - 2; end = start + 4; }
+    if (currentP > 3 && (currentP + 2) > totalP) { end = totalP; start = end - 4; }
+    TempData["CurrentPage"] = currentP;
+}
+
+<h1 class="text-center">Booking inquiries</h1>
+<p class="lead text-center">Bokningsförfrågor</p>
+<hr/>
+    @foreach (BookingForm bForm in Model)
+    {
+    <div class="container mb-3 @(bForm.ReadStatus?"":"fw-bold border-start border-3 border-warning")">
+        <div class="d-flex justify-content-between">
+            <span>@bForm.Name</span>
+            <span>
+                    @(bForm.TimeStamp > DateTime.Today ? bForm.TimeStamp.ToShortTimeString() : bForm.TimeStamp.ToShortDateString())
+                <a class="stretched-link text-decoration-none text-dark" asp-action="BookingForm" asp-route-Id="@bForm.Id">&rang;</a>
+            </span>
+        </div>
+        <div>@bForm.Comment</div>
+    </div>
+    }
+
+@if (totalP > 1)
+{
+<div class="d-flex justify-content-center mt-3">
+    <nav aria-label="Booking pagination">
+        <ul class="pagination">
+            <li class="page-item @(currentP==1?"disabled":"")">
+                <a class="page-link" asp-action="Booking" asp-route-Id="1" aria-label="First">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            @for (int i = start; i <= end; i++)
+            {
+                <li class="page-item @(i==currentP?"active":"")"><a class="page-link" asp-action="Booking" asp-route-Id="@i">@i</a></li>
+            }
+
+            <li class="page-item @(currentP==totalP?"disabled":"")">
+                <a class="page-link" asp-action="Booking" asp-route-Id="@totalP" aria-label="Last">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+}

@@ -1,0 +1,31 @@
+﻿@model Cafe.Models.ExtraService;
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1 class="text-center">@(Model.Id != 0 ? "Edit" : "Add") extra service</h1>
+
+<form asp-action="ExtraServiceItem" method="post">
+    <div class="form-floating mb-2">
+        <input asp-for="Name" class="form-control" value="@Model.Name" placeholder="Name *" />
+        <label asp-for="Name" class="form-label">Name *</label>
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-2">
+        <input asp-for="Price" class="form-control" value="@Model.Price" placeholder="Price" />
+        <label asp-for="Price" class="form-label">Price</label>
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <hr />
+    <div class="text-end">
+        <a class="btn btn-outline-secondary" asp-action="ExtraService" onclick="return confirm('Are you sure you want to cancel?')">Cancel</a>
+        <button class="btn btn-success" type="submit" onclick="return confirm('Do you want to save changes?')">Save</button>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

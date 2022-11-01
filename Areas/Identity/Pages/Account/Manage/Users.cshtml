@@ -1,0 +1,40 @@
+﻿@page
+@model UsersModel
+@{
+    ViewData["Title"] = "Manage Users";
+}
+<h3>@ViewData["Title"]</h3>
+
+<div class="row">
+    <div class="col">
+        <div class="input-group">
+            <div class="input-group-text">
+                Admin
+            </div>
+            <div class="input-group-text col">
+                Username
+            </div>
+        </div>
+
+        @for (int i = 0; i < Model.Users.Count; i++)
+        {
+            <form asp-page-handler="PromoteUser" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="input-group">
+                    <div class="input-group-text">
+                        <input name="RoleAdmin" type="checkbox" @(Model.RoleAdmin[i]?"checked":"") class="form-check-input" onclick="this.form.submit()">
+                    </div>
+                    <input name="UserName" value="@Model.Users[i].UserName" class="form-control" readonly />
+                    <button id="change-email-button" type="submit" asp-page-handler="DeleteUser" class="btn btn-lg btn-danger" onclick="return confirm('Do you want to delete the user?')">Del</button>
+                </div>
+
+
+
+            </form>
+
+        }
+        <a asp-page="../Register">Register new user</a>
+    </div>
+</div>
+

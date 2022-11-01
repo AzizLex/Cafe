@@ -1,0 +1,27 @@
+﻿@model IList<Cafe.Models.ExtraService>;
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1 class="text-center">Extra services</h1>
+<p class="lead text-center">Redigera tjänster</p>
+@foreach (var extras in Model)
+{
+        <hr />
+        <div class="row">
+            <div class="col-4">
+                <p><span class="fw-bold">Name:</span> @extras.Name</p>
+            </div>
+
+            <div class="col-2">
+                <p><b>Price:</b> @extras.Price</p>
+            </div>
+            <div class="col-6 text-end">
+                <a class="btn btn-primary" asp-action="ExtraServiceItem" asp-route-id="@extras.Id">Edit</a>
+                <a class="btn btn-danger" asp-action="ExtraServiceItemDelete" asp-route-id="@extras.Id" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+            </div>
+        </div>
+
+}
+<hr />
+<a class="btn btn-primary p-2 mx-2" asp-action="ExtraServiceItemAdd">Add a new extra service</a>

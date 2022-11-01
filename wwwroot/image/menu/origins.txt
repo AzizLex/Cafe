@@ -1,0 +1,53 @@
+/image/menu/kycklingvingar.jpg  - https://www.pexels.com/photo/close-up-photo-of-fried-chicken-60616/
+/image/menu/kibbeh.jpg  - required <a href='https://www.freepik.com/photos/kibbeh'>Kibbeh photo created by KamranAydinov - www.freepik.com</a>
+/image/menu/mozzarella-sticks.jpg - https://pixabay.com/photos/mozzarella-sticks-dip-food-4407742/
+/image/menu/chili-cheese.jpg - https://pixabay.com/photos/chili-chili-cheese-tops-cheese-tops-6134690/
+/image/menu/french-fries.jpg - https://pixabay.com/photos/french-fries-chips-potato-fresh-6208782/
+/image/menu/chicken-liver.jpg - https://pixabay.com/photos/chicken-liver-liver-with-vegetables-2786322/
+/image/menu/lokringar.jpg - https://pixabay.com/photos/crunchy-fried-onion-rings-american-5466250/
+/image/menu/ostrullar.jpg - https://pixabay.com/photos/food-refreshment-plate-meal-3228057/
+/image/menu/tabbouleh-salad.jpg - https://www.freepik.com/free-photo/tabbouleh-salad_6933312.htm
+/image/menu/fatoush.jpg - https://unsplash.com/photos/EvoIiaIVRzU
+/image/menu/muhammara.jpg - https://pixabay.com/photos/muhammara-muhamara-pate-pates-4905234/
+/image/menu/baba-ghanoush.jpg - https://unsplash.com/photos/SnsV0T5dWOk
+/image/menu/tzatziki.jpg - https://www.pexels.com/photo/overhead-shot-of-tzatziki-in-a-bowl-6271878/
+/image/menu/grekisk-sallad.jpg - https://unsplash.com/photos/eKsi3xW7fCA
+/image/menu/chips.jpg - https://pixabay.com/photos/crisps-nibble-pringles-chipsets-843993/
+/image/menu/nuts.jpg - https://pixabay.com/photos/nuts-nut-mix-food-snack-walnut-5501221/
+/image/menu/hummus.jpg - https://www.freepik.com/free-photo/freshmade-oriental-classic-hummus-served-bowl-table_10330642.htm
+/image/menu/olivier-sallad.jpg - https://www.freepik.com/free-photo/bowl-traditional-russian-salad_17110223.htm
+/image/menu/labneh.jpg - https://pixabay.com/photos/yogurt-glass-white-2035323/
+/image/menu/Feta.jpg - https://www.pexels.com/photo/feta-cheese-on-plate-6128854/
+/image/menu/PastaSallad.jpg - https://www.pexels.com/photo/cooked-pasta-on-brown-wooden-bowl-803963/
+/image/menu/Kycklingspett.jpg - https://www.pexels.com/photo/crop-man-with-grilled-skewer-meat-against-black-wall-4625609/
+/image/menu/kyckling-crispy.jpg - https://www.pexels.com/photo/pieces-of-crispy-fried-chicken-in-close-up-shot-8919199/
+/image/menu/shawarma.jpg - https://www.pexels.com/photo/shawarma-meat-on-fire-10572741/
+/image/menu/halv-kyckling.jpg - https://www.pexels.com/photo/fried-fried-chicken-12261162/
+/image/menu/burgare-pommes.jpg - https://www.pexels.com/photo/classic-hamburger-and-french-fries-on-wooden-board-1556688/
+/image/menu/quzy.jpg - https://www.pexels.com/photo/fried-rice-on-white-and-red-plate-6260921/
+/image/menu/falafel.jpg - https://www.pexels.com/photo/close-up-photo-of-fried-falafel-4722529/
+/image/menu/kebab-pizza.jpg - https://www.pexels.com/photo/pizza-on-brown-wooden-board-825661/
+/image/menu/kyckling-pizza.jpg - https://www.pexels.com/photo/pizza-dish-367915/
+/image/menu/havana-pizza.jpg - https://www.pexels.com/photo/baking-cheese-cooking-crust-315755/
+/image/menu/kebab-fries4.jpg - https://www.dreamstime.com/photos-images/kebab-fries4.html
+/image/menu/Mango2.jpg - https://www.pexels.com/photo/sliced-mango-beside-a-clear-glass-bottle-with-yellow-liquid-4955264/
+/image/menu/Banana.jpg - https://unsplash.com/photos/0BF_Kpcmyig
+/image/menu/Hallon.jpg - https://www.pexels.com/photo/raspberry-cold-beverage-with-sliced-lemon-and-mint-2110927/
+/image/menu/Jordgubb.jpg - https://www.pexels.com/photo/ice-cold-strawberry-drink-in-a-wine-glass-7586826/
+/image/menu/Apelsin.jpg - https://unsplash.com/photos/IgGFNg-xPJs
+/image/menu/Havana.jpg - https://unsplash.com/photos/xjPULCrk-RI
+/image/menu/Pepsi.jpg - https://unsplash.com/photos/4XwuyCZ0rhY
+/image/menu/Fanta.jpg - https://unsplash.com/photos/aKYu-H5pHJY
+/image/menu/Powerking.jpg - https://unsplash.com/photos/PZsso_IiYRE
+/image/menu/Lemon.jpg - https://unsplash.com/photos/oUUBhKsQtFo
+/image/menu/Ayran.jpg - https://www.pexels.com/photo/milk-in-clear-glass-jar-with-straw-6946516/
+/image/menu/Tea.jpg - https://www.pexels.com/photo/close-up-photo-of-steaming-black-tea-in-glass-1493080/
+/image/menu/Kaffe.jpg - https://www.pexels.com/photo/white-ceramic-mug-with-coffee-4264049/
+/image/menu/Cappuccino.jpg - https://www.pexels.com/photo/white-ceramic-coffee-cup-with-white-ceramic-saucer-1036444/
+/image/menu/Kunafa.jpg - https://www.pexels.com/photo/a-brown-round-cake-11833316/
+/image/menu/Chokladtårta.jpg - https://www.pexels.com/photo/close-up-photo-of-sliced-chocolate-cake-4110008/
+/image/menu/Dimetårta.jpg - https://www.pexels.com/photo/a-walnut-pie-on-the-plate-5840664/ 
+
+
+
+

@@ -1,0 +1,141 @@
+﻿
+.nav-brand {
+    color: black;
+    text-decoration: none;
+}
+
+.m-top-menu {
+    margin-top: 110px;
+}
+
+#menu-navbar {
+    background: var(--green-lime);
+}
+
+#menu-navtabs {
+}
+
+ul.menu-list,
+ul.menu-list li {
+    list-style-type: none;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 0px;
+}
+
+ul.menu li a {
+    color: #333333;
+}
+
+ul.menu li a:hover {
+    color: black;
+}
+
+#xcat-1,
+#xcat-2,
+#xcat-3,
+#xcat-4,
+#xcat-5,
+#xcat-6 {
+    scroll-margin-top: 125px;
+}
+
+.menu-display-full ul {
+    color: white;
+}
+
+.menu-display-full li {
+    color: white;
+    text-decoration: none;
+}
+
+.menu-display-category h1,
+.menu-display-category h2,
+.menu-display-category h3,
+.menu-display-category h4,
+.menu-display-category h5,
+.menu-display-category h6 {
+    font-family: 'Roboto Slab', serif;
+}
+
+#subcat-1-color,
+#subcat-5-color,
+#subcat-1-items,
+#subcat-5-items {
+    background: var(--green-cool);
+}
+
+#subcat-2-color,
+#subcat-6-color,
+#subcat-2-items,
+#subcat-6-items {
+    background: var(--mango-yellow);
+}
+
+#subcat-3-color,
+#subcat-7-color,
+#subcat-3-items,
+#subcat-7-items {
+    background: var(--pink-soft);
+}
+
+#subcat-4-color,
+#subcat-8-color,
+#subcat-4-items,
+#subcat-8-items {
+    background: var(--crimson-red);
+}
+
+.subcat-images {
+    height: auto;
+    width: auto;
+}
+
+.subcat-single-img img {
+    object-fit: cover;
+}
+
+/*
+    --------------------------
+    MEDIA QUERY : LARGE and up
+    --------------------------
+*/
+
+@media (min-width: 992px) {
+
+    .subcat-images {
+        position: relative;
+        min-height: 200px;
+        width: auto;
+    }
+    .subcat-items {
+        height: 100%;
+        column-count: 2;
+        column-gap: 2rem;
+        column-rule: 2px solid rgba(255,255,255,0.25);
+        align-content: baseline;
+    }
+    .subcat-single-img {
+        position: absolute;
+        bottom: 0px;
+        height: 100%;
+        width: 75%;
+        left: 50%;
+        transform: translate(-50%, 0);
+        z-index: 2;
+    }
+    .subcat-single-img img {
+        position: absolute;
+        bottom: 0px;
+
+    }
+    .subcat-color {
+        position: absolute;
+        bottom: 0px;
+        height: 75%;
+        width: 100%;
+        border-top: 15px solid rgba(0,0,0,0.25);
+    }
+}

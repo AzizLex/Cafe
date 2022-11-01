@@ -1,0 +1,8 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "Admin start";
+
+}
+
+<h2>Hello <span class="fst-italic">@User.Identity?.Name!</span></h2>
+<a asp-controller="Home" asp-action="Index" class="btn btn-primary">View public site</a>

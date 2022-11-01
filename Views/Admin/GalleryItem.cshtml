@@ -1,0 +1,131 @@
+﻿@model Cafe.Models.Gallery;
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1 class="text-center">@(Model.Id != 0 ? "Edit" : "Add") gallery</h1>
+<hr />
+<br />
+<form asp-action="GalleryItem" method="post">
+    <div class="form-floating mb-2">
+        <input asp-for="Name" class="form-control" value="@Model.Name" placeholder="Name *" />
+        <label asp-for="Name" class="form-label">Name *</label>
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-2">
+        <input asp-for="TimeStamp" class="form-control" value="@Model.TimeStamp.ToString("O").Substring(0,Model.TimeStamp.ToString("O").Length-11)" />
+        <label asp-for="Description" class="form-label">Date</label>
+        <span asp-validation-for="TimeStamp" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-2">
+        <input asp-for="Description" class="form-control" value="@Model.Description" placeholder="Description" />
+        <label asp-for="Description" class="form-label">Description</label>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    @*------------------------------------------------------------------------*@
+    <div class="d-flex">
+        <h3 class="d-inline">Pictures</h3>
+        <div class="col-3 d-flex align-items-center">
+            <button type="button" class="btn btn-primary p-2 mx-2" id="add">Add</button>
+        </div>
+    </div>
+    <div class="row mb-2 pt-3" id="img-row">
+        @if (Model.Images != null)
+        {
+            @for (int i = 0; i < Model.Images.Count; i++)
+            {
+                <div class="col-4 mb-2" id="@i">
+                    <div class=" position-relative">
+                        <div class="ratio ratio-4x3">
+                            <img class="img-fluid cover hand image" src="@Model.Images[i].URL" alt="@Model.Images[i].URL" data-bs-toggle="modal" data-bs-target="#picGallery" />
+                        </div>
+                        <div>
+                            <input asp-for="Images[i].URL" value="@Model.Images[i].URL" />
+                            <input asp-for="Images[i].Id" value="@Model.Images[i].Id" />
+                        </div>
+                        <i class="bi bi-x-circle-fill fs-3 hand text-danger position-absolute top-0 start-100 translate-middle remove-button" style=" z-index:60;"></i>
+                        <i class="bi bi-circle-fill fs-3 text-white position-absolute top-0 start-100 translate-middle"></i>
+                    </div>
+                    <div class="input-group">
+                        <input asp-for="Images[i].TimeStamp" class="form-control" value="@Model.Images[i].TimeStamp.ToString("O").Substring(0,Model.Images[i].TimeStamp.ToString("O").Length-11)" />
+                        <span asp-validation-for="Images[i].TimeStamp" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input asp-for="Images[i].Description" class="form-control" value="@Model.Images[i].Description" placeholder="Image description" />
+                        <label asp-for="Images[i].Description" class="form-label">Title</label>
+                        <span asp-validation-for="Images[i].Description" class="text-danger"></span>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    @*------------------------------------------------------------------------*@
+    <hr />
+    <div class="modal-footer">
+        <a class="btn btn-outline-secondary" asp-action="Gallery" onclick="return confirm('Are you sure you want to cancel?')">Cancel</a>
+        <button class="btn btn-success" type="submit" onclick="return confirm('Do you want to save changes?')">Save</button>
+    </div>
+</form>
+
+<partial name="_PicsPartial" />
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        await Html.RenderPartialAsync("_PicsScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            $("#add").click(function () {
+                let now = new Date();
+                let nowString = now.getFullYear() + "-" + now.getMonth() + "-" + now.getDate() + " " + (now.getHours()+2) + ":" + now.getMinutes() + ":" + now.getSeconds();
+                nowString = now.toISOString().slice(0, 19);
+                $("#img-row").append(
+                    "<div class=\"col-4\" id=\"X\">" +
+                    "<div class=\" position-relative\">" +
+                    "<div class=\"ratio ratio-4x3\">" +
+                    "<img class=\"img-fluid cover hand image\" src=\"/image/placeholder.png\" alt=\"/image/placeholder.png\" data-bs-toggle=\"modal\" data-bs-target=\"#picGallery\" />" +
+                    "</div>" +
+                    "<div class=\"col\">" +
+                    "<input value=\"/image/placeholder.png\" type=\"hidden\" id=\"Images_X__URL\" name=\"Images[X].URL\">" +
+                    "<input value=\"0\" type=\"hidden\" id=\"Images_X__URL\" name=\"Images[X].URL\">" +
+                    "</div>" +
+                    "<i class=\"bi bi-x-circle-fill fs-3 hand text-danger position-absolute top-0 start-100 translate-middle remove-button\" style=\" z-index:60;\"></i>" +
+                    "<i class=\"bi bi-circle-fill fs-3 text-white position-absolute top-0 start-100 translate-middle\"></i>" +
+                    "</div>" +
+                    "<div class=\"input-group\" >" +
+                    "<input class=\"form-control\" value = \"" + nowString + "\" type = \"datetime-local\" id=\"Images_X__TimeStamp\" name= \"Images[X].TimeStamp\" >" +
+                    "</div>" +
+                    "<div class=\"form-floating mb-2\"> " +
+                    "<input class=\"form-control\" placeholder=\"Image description\" id=\"Images_X__Description\" name=\"Images[X].Description\"> " +
+                    "<label class=\"form-label\" for=\"Images_X__Description\">Title</label> " +
+                    "</div> " +
+                    "</div>"
+                );
+                $("#img-row").children().each(function (i) {
+                    $(this).attr('id', i);
+                    $(this).children().first().find("input:first-child").attr({ name: "Images[" + i + "].URL", id: "Images_" + i + "__URL" });
+                    $(this).children().first().find("input:nth-child(2)").attr({ name: "Images[" + i + "].Id", id: "Images_" + i + "__Id" });
+                    $(this).children().first().next().find("input:first-child").attr({ name: "Images[" + i + "].TimeStamp", id: "Images_" + i + "__TimeStamp" });
+                    $(this).children().first().next().next().find("input:first-child").attr({ name: "Images[" + i + "].Description", id: "Images_" + i + "__Description" });
+
+                });
+                $("#img-row").find(".image").last().trigger("click");
+            });
+
+            $("#img-row").on("click", ".remove-button", function () {
+                if (confirm("Are you sure to remove the link to image?")) {
+                    $(this).parent().parent().remove();
+                    $("#img-row").children().each(function (i) {
+                        $(this).attr('id', i);
+                        $(this).children().first().find("input:first-child").attr({ name: "Images[" + i + "].URL", id: "Images_" + i + "__URL" });
+                        $(this).children().first().find("input:nth-child(2)").attr({ name: "Images[" + i + "].Id", id: "Images_" + i + "__Id" });
+                        $(this).children().first().next().find("input:first-child").attr({ name: "Images[" + i + "].TimeStamp", id: "Images_" + i + "__TimeStamp" });
+                        $(this).children().first().next().next().find("input:first-child").attr({ name: "Images[" + i + "].Description", id: "Images_" + i + "__Description" });
+
+                    });
+                }
+            });
+        });
+    </script>
+}

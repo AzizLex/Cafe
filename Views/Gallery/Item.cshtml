@@ -1,0 +1,23 @@
+﻿@model Cafe.Models.Gallery
+
+<div class="container m-top bg-light mb-3">
+    <h2 class="text-center">@Model.Name</h2>
+    <p class="mb-4 text-center">@Model.Description</p>
+    <div class="row">
+        @foreach (var item in Model.Images)
+        {
+            <div class="col-sm-6 col-lg-4 mb-3">
+                <div class="ratio ratio-4x3 gallery-item">
+                    <img loading="lazy" src="@item.URL" class="img-fluid" onerror="this.onerror=null; this.src='/image/placeholder.png'">
+                    <a href="@item.URL" data-toggle="lightbox" data-gallery="havana-gallery" data-caption="@Html.DisplayFor(m=>item.TimeStamp) @item.Description" data-type="image">
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bs5-lightbox@1.8.0/dist/index.bundle.min.js"></script>
+}

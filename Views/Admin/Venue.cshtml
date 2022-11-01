@@ -1,0 +1,66 @@
+﻿@model IList<Cafe.Models.Venue>;
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+            <h1 class="text-center">Edit venues</h1>
+			<p class="lead text-center">Redigera lokaler</p>
+            @foreach (var venue in Model)
+            {
+				<hr />
+				<div class="row">
+					<div class="col-sm-8">
+						<h3>@venue.Name</h3>
+					</div>
+					<div class="col-sm-4 text-end">
+						<a class="btn btn-primary mx-2" asp-action="VenueItem" asp-route-id="@venue.Id">Edit</a>
+						<a class="btn btn-danger" asp-action="VenueItemDelete" asp-route-id="@venue.Id" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<p><span class="fw-bold">Description / Beskrivning:</span><br />
+						@venue.Description</p>
+					</div>
+					<div class="col-sm-12">
+						<p><span class="fw-bold">Area size / Storlek (kvm):</span><br />
+						@venue.Area</p>
+					</div>
+					<div class="col-sm-12">
+						<p><span class="fw-bold">Guests / Gäster:</span><br />
+						@venue.Guests</p>
+					</div>
+					<div class="col-sm-12">
+						<p><span class="fw-bold">Tables / Bord:</span><br />
+						@venue.Table</p>
+					</div>
+					<div class="col-sm-12">
+						<p><span class="fw-bold">Equipment / Utrustning:</span><br />
+						@venue.Equipment</p>
+					</div>
+					<div class="col-sm-12">
+						<p><span class="fw-bold">Other info / Övrigt:</span><br />
+						@venue.Other</p>
+					</div>
+				</div>
+				<h5>Images / Bilder:</h5>
+				@if (venue.Images != null)
+				{
+				<div class="row d-flex flex-nowrap overflow-auto">
+					@foreach (var image in venue.Images)
+					{
+					<div class="col-4">
+						<div class="ratio ratio-4x3">
+							<img class=" img-fluid cover" src="@image.URL" alt="@image.URL"/>
+						</div>
+					</div>
+					}
+				</div>
+				}	
+				else
+				{
+				<p>No photos yet...</p>
+				}				
+            }
+            <hr />
+				<a class="btn btn-primary float-start" asp-action="VenueItemAdd">Add a new venue</a>

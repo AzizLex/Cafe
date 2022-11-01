@@ -1,0 +1,38 @@
+﻿@model IList<Cafe.Models.MenuCategory>
+
+<!DOCTYPE html>
+<html lang="sv-se">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Cafe</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/menu.css" />
+</head>
+<body>
+    <div id="main-wrapper" class="d-flex flex-column">
+        <header id="menu-top" class="fixed-top">
+            <partial name="_Navbar" />
+            <nav id="menu-navtabs" class="w-100 p-sm-0 m-sm-0 bg-white">
+                <div class="container p-0">
+                    <ul class="nav nav-tabs justify-content-center nav-fill menu">
+                        @foreach (var item in Model)
+                        {
+                            <li class="nav-item"><a class="nav-link anchor-menu" href="#xcat-@item.Id">@item.Name</a></li>
+                        }
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <div role="main" id="main-section" class="flex-grow-1">
+            @RenderBody()
+        </div>
+        <partial name="_Footer.cshtml" />
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

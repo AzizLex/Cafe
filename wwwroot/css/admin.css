@@ -1,0 +1,125 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+/* ADMIN.CSS */
+
+
+:root {
+    --grad-whites: linear-gradient(#ffffffb4, #ffffffa4);
+    --green-cool-darkest: #194a45;
+    --green-cool-darker: #256f68;
+    --green-cool: #67cdbd;
+    --green-cool-fade: #e0f5f1;
+    --green-lime: #b1dfb4;
+}
+
+html {
+    position: relative;
+    height: 100%;
+    font-size: 1rem;
+    font-family: Lato, Geneva, Tahoma, sans-serif;
+}
+
+@media (min-width: 768px) {
+    html {
+        position: relative;
+        height: 100%;
+        font-size: 1.1rem;
+        font-family: Lato, Geneva, Tahoma, sans-serif;
+    }
+}
+
+body {
+    height: 100%;
+    margin: 0 0 0 0;
+    padding: 0;
+    background: #FAFAFA;
+}
+
+.admin-m-top {
+    margin-top: 80px;
+}
+
+#admin-navbar {
+    background: black;
+}
+
+#admin-wrapper {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+#main-container {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+#main-footer {
+    padding: 0;
+}
+
+.navbar-brand,
+.nav-brand {
+    font-size: 1.5rem;
+    font-family: 'Pacifico', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Roboto Slab', sans-serif;
+}
+
+@media (min-width: 768px) {
+    .top-nav li {
+        cursor: pointer;
+    }
+
+    .top-nav li:after {
+        content: '';
+        display: block;
+        border-bottom: 2px solid var(--green-cool);
+        transform: scaleX(0);
+        transition: 0.2s ease-in-out;
+    }
+
+    .top-nav li:hover:after {
+        transform: scaleX(1);
+    }
+}
+
+.bg-footer-green {
+    background: var(--green-cool-darker);
+}
+
+.bg-footer-darkgreen {
+    background: var(--green-cool-darkest);
+}
+
+/*
+    ----------------
+    Aziz
+    ----------------
+*/
+
+.cover{
+    object-fit: cover;
+}
+.hand{
+    cursor:pointer;
+}
+
+/*Admin Menu */
+.category:before {
+    content: "\2b";
+}
+
+.category.is-active:before {
+    content: "\2212";
+}
+
+.hand {
+    cursor: pointer;
+}

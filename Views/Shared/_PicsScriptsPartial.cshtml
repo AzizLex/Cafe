@@ -1,0 +1,125 @@
+﻿<script>
+    $(document).ready(function() {
+        $("#picGallery").on('shown.bs.modal', function() {
+            showPics(1, "");
+        });
+        $(document).on("click", ".image", function(event) {
+            urlInput = $(event.target).parent().next().children().first();
+            showPics(1, "");
+        });
+        $(".urlPic").click(function() {
+            urlInput = $(this).prev();
+        });
+        $('#file').on('change', function(event) {
+            var fileUpload = $("#file").get(0);
+            var files = fileUpload.files;
+            var data = new FormData();
+            for (var i = 0; i < files.length; i++) {
+                data.append(files[i].name, files[i]);
+            }
+            $.ajax({
+                type: "POST",
+                url: "/Ajax/UploadFiles",
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function(message) {
+                    showPics(1, "");
+                },
+                error: function() {
+                    alert("There was error uploading files!");
+                }
+            });
+        });
+        $("#picGallery").on("click",".sel-button",function() {
+            $(urlInput).val($(this).attr("src"));
+            $(urlInput).parent().prev().children("img").attr('src', $(this).attr("src"));
+            $("#picGallery").modal('hide');
+        });
+        $("#picGallery").on("click",".del-button",function() {
+            if (confirm("This action will delete file from server and its links from all places. You cannot undo it. Would you confirm the action?")) {
+                let data = $(this).prev().children("img").attr("src");
+                $.ajax({
+                    type: "POST",
+                    url: "/Ajax/DeleteFile",
+                    data: JSON.stringify({ name: data }),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function(message) {
+                        showPics(1, "");
+                    },
+                    error: function() {
+                        alert("Error!");
+                    }
+                });
+            }
+        });
+
+    });
+    function showPics(page, folderStr) {
+        var jsonInput = {
+            currentP: page,
+            folder: folderStr
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '/Ajax/GetImageList',
+            data: JSON.stringify(jsonInput),
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            success: function(result) {
+                $("#galleryImages").empty();
+                $("#pagination").empty();
+                $("#galleryImages").append(
+                    "<div class=\"col-12 border mb-3\" id=\"folders\"></div>"
+                );
+                result.folders.forEach(function(item, index) {
+                    $("#folders").append(
+                        "<button class=\"btn btn-secondary m-2\">" + item + "</button>"
+                    );
+                });
+                $("#folders").children().click(function() {
+                    showPics(1, this.innerText);
+                });
+                result.files.forEach(function(item, index) {
+                    $("#galleryImages").append(
+                        "<div class=\"col-sm-6 col-lg-4 col-xl-3 mb-3\">" +
+                        "<div class=\"position-relative\">" +
+                        "<div class=\"ratio ratio-4x3\">" +
+                        "<img src=\"" + item + "\" class=\"img-fluid cover hand pe-auto sel-button\" alt=\"" + item + "\" title=\"" + item + "\">" +
+                        "</div>" +
+                        "<i class=\"bi bi-x-circle-fill fs-3 hand text-danger position-absolute top-0 start-100 translate-middle del-button\" style=\" z-index:1060;\"></i>" +
+                        "<i class=\"bi bi-circle-fill fs-3 text-white position-absolute top-0 start-100 translate-middle\"></i>" +
+                        "</div>" +
+                        "</div>"
+                    );
+                });
+
+                let pgnStr = "<ul class=\"pagination\"><li class=\"page-item";
+                if (result.currentP == 1) { pgnStr += " disabled" }
+                pgnStr += "\"><button onclick=\"showPics(" + 1 + ",\'\')\" type=\"button\" class=\"page-link\" aria-label=\"First\"><span aria-hidden=\"true\">&laquo;</span></button></li>";
+                let start = 1;
+                let end = 5;
+                if (result.totalP < end) { end = result.totalP; }
+                if (result.currentP > 3 && (result.currentP + 2) <= result.totalP) { start = result.currentP - 2; end = start + 4; }
+                if (result.currentP > 3 && (result.currentP + 2) > result.totalP) { end = result.totalP; start = end - 4; }
+
+                for (let i = start; i <= end; i++) {
+                    pgnStr += "<li class=\"page-item";
+                    if (i == result.currentP) { pgnStr += " active" }
+                    pgnStr += "\"><button onclick=\"showPics(" + i + ",\'\')\" class=\"page-link\" type=\"button\">" + i + "</button></li>";
+                }
+                pgnStr += "<li class=\"page-item";
+                if (result.currentP == result.totalP) { pgnStr += " disabled" }
+                pgnStr += "\"><button onclick=\"showPics(" + result.totalP + ",\'\')\" type=\"button\" class=\"page-link\" aria-label=\"Last\"><span aria-hidden=\"true\">&raquo;</span></button></li></ul>";
+                $("#pagination").append(pgnStr);
+            },
+            error: function() {
+                alert("Error occured!!")
+            }
+        });
+    }
+</script>
+
+

@@ -1,0 +1,26 @@
+﻿@model IList<Cafe.Models.Gallery>
+<div class="container m-top bg-light  mb-0 p-3">
+    <h2>Fotogallerier</h2>
+  	<p class="lead">Här finns bilder från tidigare evenemang hos oss på Café</p>
+    <div class="row pb-3">
+        @foreach (var item in Model)
+        {
+        <div class="col-sm-6 pt-2 col-lg-4 text-center gallery-div mt-3">
+            <h5 class="text-truncate">@item.Name</h5>
+            @if (item.Images.Any())
+            {
+                <p class="small mb-0">@Html.DisplayFor(m => item.Images[0].TimeStamp)</p>
+            }
+            <div class="gallery-item ratio ratio-4x3">
+                <a asp-controller="Gallery" asp-action="Item" asp-route-Id="@item.Id">
+                    @if (item.Images.Any())
+                    {
+                        <img class="img-fluid" loading="lazy" src="@item.Images.FirstOrDefault().URL" alt="@item.Name" onerror="this.onerror=null; this.src='/image/placeholder.png'">
+                    }
+                </a>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+

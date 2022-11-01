@@ -1,0 +1,32 @@
+﻿
+@using Microsoft.AspNetCore.Http.Features
+
+@{
+    var consentFeature = Context.Features.Get<ITrackingConsentFeature>();
+    var showBanner = !consentFeature?.CanTrack ?? false;
+    var cookieString = consentFeature?.CreateConsentCookie();
+}
+
+@if (showBanner)
+{
+    <div id="cookieConsent" class="fixed-bottom container ms-auto me-auto m-3 p-3 alert alert-info alert-dismissible fade show" role="alert">
+        <div class="w-100 justify-content-center">
+            <div class="float-md-end">
+                <button type="button" class="btn btn-primary accept-policy close" data-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString">
+                    <span aria-hidden="true">Jag förstår!</span>
+                </button>
+            </div>
+            <p class="m-1 p-0">
+                <span class="fw-bold">Vi bjuder på digitala kakor!</span> Vi har placerat cookies på din dator för att ge dig en bättre upplevelse.<br />Om du inte godkänner eller vill ha mer information kan du läsa mer här: <a asp-controller="Home" asp-action="Policy">Privacy policy</a>.
+            </p>
+        </div>
+    </div>
+    <script>(function () {
+            var button = document.querySelector("#cookieConsent button[data-cookie-string]");
+            button.addEventListener("click", function (event) {
+                document.cookie = button.dataset.cookieString;
+                document.getElementById("cookieConsent").classList.remove('show');
+                document.getElementById("cookieConsent").classList.add("d-none");
+            }, false);
+        })();</script>
+}

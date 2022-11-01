@@ -1,0 +1,72 @@
+﻿@model Cafe.Models.MenuSubCat
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h1 class="text-center">@Model.Name</h1>
+    <div class="row justify-content-sm-center mb-3">
+        <div class="col-sm-6">
+            <div class="form-group mt-2 text-center">
+                @if (Model.URL != null)
+                {
+                    <img id="image" alt="Click to change" title="@Model.Name" class="img-fluid image hand" src="@Model.URL" onerror="this.onerror=null; this.src='/image/menu/placeholder.png'" loading="lazy" data-bs-toggle="modal" data-bs-target="#picGallery" />
+                }
+                else
+                {
+                    <img id="image" alt="Click to change" title="Image" class="img-fluid image hand" src="/image/menu/placeholder.png" loading="lazy" data-bs-toggle="modal" data-bs-target="#picGallery" />
+                }
+            </div>
+            <div class="d-flex">
+                <input asp-for="URL" class="form-control" value="@Model.URL" placeholder="URL" readonly />
+            <button type="button" class="btn btn-primary urlPic" data-bs-toggle="modal" data-bs-target="#picGallery">Change</button>
+            </div>
+            <span asp-validation-for="URL" class="text-danger"></span>
+        </div>
+    </div>
+
+    @foreach (var item in Model.Items)
+    {
+        <div class="d-flex mb-3">
+            <h5 class="me-auto" id="@item.Id">@item.Name</h5>
+            <form asp-action="MenuItemDel" method="post">
+                <a class="btn btn-primary p-2" asp-action="MenuItemEdit" asp-route-id="@Model.Id" asp-route-iId="@item.Id">Edit</a>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" id="itemId" name="itemId" value="@item.Id">
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+            </form>
+        </div>
+    }
+    <div class="d-flex justify-content-between">
+        <a class="btn btn-secondary" asp-action="Menu">Back</a>
+        <a class="btn btn-primary" asp-action="MenuItemAdd" asp-route-id="@Model.Id">Add new item</a>
+    </div>
+
+<partial name="_PicsPartial" />
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        await Html.RenderPartialAsync("_PicsScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            $("#picGallery").on("click", ".sel-button", function () {
+                let data = $("#URL").val();
+                    $.ajax({
+                        type: "POST",
+                        url: "/Ajax/UpdateSubCatImage",
+                        data: JSON.stringify({
+                            Id: "@Model.Id",
+                            URL: data
+                        }),
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (message) {
+
+                        },
+                        error: function () {
+                            alert("Error!");
+                        }
+                    });
+            });
+        });
+    </script>
+    }

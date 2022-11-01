@@ -1,0 +1,14 @@
+﻿@model Cafe.Models.About
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="container m-top bg-light p-3 mb-0">
+    <h2>@ViewData["Title"]</h2>
+    <p class="lead">@Model.Motto</p>
+    <div class="w-100 about-text">
+        <img src="@Model.URL" alt="Welcome to Havana Café" class="img-fluid w-25 ms-0 mt-0 me-3 mb-3 float-md-start" />
+        @Html.Raw(Model.Description)
+    </div>
+</div>

@@ -1,0 +1,44 @@
+﻿@model Cafe.Models.Policy
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1 class="text-center">Edit policy page</h1>
+<p class="lead text-center">Redigera policy-sidan</p>
+
+<form asp-action="Policy" method="post">
+    <div class="form-floating mb-2">
+        <input asp-for="Name" class="form-control" placeholder="Titel" value="@Model.Name" />
+        <label asp-for="Name" class="form-label">Title: *</label>
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-2">
+        <input asp-for="Lead" class="form-control"  type="text" placeholder="Lead" value="@Model.Lead" />
+        <label asp-for="Lead" class="form-label">Inledning: *</label>
+        <span asp-validation-for="Lead" class="text-danger"></span>
+    </div>
+    <div class="row justify-content-sm-center">
+        <div class="form-group">
+            <textarea id="Description" class="form-control auto-resize" asp-for="@Model.Description" placeholder="Description">@Model.Description</textarea>
+            <span asp-validation-for="@Model.Description" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group mt-3 text-end">
+        <a class="btn btn-outline-secondary" asp-action="Index" onclick="return confirm('Exit without saving changes?')">Cancel</a>
+        <input type="submit" value="Save" class="btn btn-success" onclick="return confirm('Save changes?')" />
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script src="~/lib/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#Description',
+        });
+    </script>
+    }
+

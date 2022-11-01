@@ -1,0 +1,25 @@
+﻿<!-- Modal -->
+<div class="modal fade" id="picGallery" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="newCategoryLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="modal-header">
+                <h5 class="modal-title" id="newCategoryLabel">Picture management</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row" id="galleryImages">
+                    @* ------------- New picture list comes here---------*@
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+                <label class="btn btn-primary" for="file">Upload</label>
+                <input class="d-none" id="file" type="file" name="file" accept="image/*" multiple />
+                <nav aria-label="Picture manger pagination" id="pagination">
+                    @* ------------- Pagination comes here---------*@
+                </nav>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

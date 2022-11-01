@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html lang="sv-se">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Havana Café</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>  
+    <div id="main-wrapper" class="d-flex flex-column">
+        <header class="fixed-top">
+            @*Navbar section rendered as a partial view*@
+            <partial name="_Navbar" />
+        </header>
+        <div role="main" id="main-section" class="flex-grow-1">
+            @RenderBody()
+        </div>
+        @*Footer section rendered as a partial view:*@
+        <partial name="_Footer" />
+        <partial name="_CookieConsent" />
+    </div>  
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

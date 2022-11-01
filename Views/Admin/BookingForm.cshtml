@@ -1,0 +1,45 @@
+﻿@model Cafe.Models.BookingForm;
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h1 class="mb-3 text-center">Booking message</h1>
+<div class="d-flex">
+    <p class="flex-fill"><b>From: </b>@Model.Name<br /><b>Email: </b><a href="mailto:@Model.Email">@Model.Email</a> <br /><b>Phone: </b>@Model.Phone</p>
+    <p><b>Sent: </b>@(Model.TimeStamp > DateTime.Today ? Model.TimeStamp.ToShortTimeString() : Model.TimeStamp.ToShortDateString())</p>
+</div>
+<div class="col-md-4">
+    <b>Venue: </b>
+    <ul>
+        @foreach (var venue in Model.Venues)
+        {
+            <li>@venue.Name</li>
+        }
+    </ul>
+</div>
+<div class="col-md-4">
+    <b>Guests: </b>
+    <ul>
+        <li><b>Eating: </b>@Model.Plates</li>
+        <li><b>Total: </b>@Model.Guests</li>
+
+    </ul>
+
+</div>
+<div class="col-md-4">
+    <b>Extra Services: </b>
+    <ul>
+        @foreach (var extra in Model.Extras)
+        {
+            <li>@extra.Name</li>
+        }
+    </ul>
+</div>
+<div class="col-12">
+    <b>Catering: </b>@Model.Cuisine
+</div>
+<p style="min-height: 100px"><b>Message: </b>@Model.Comment</p>
+
+<div class="d-flex justify-content-between">
+    <a class="btn btn-secondary" asp-action="Booking" asp-route-Id="@TempData["CurrentPage"]">Back</a>
+    <a class="btn btn-danger" asp-action="BookingFormDelete" asp-route-Id="@Model.Id" onclick="return confirm('Are you sure you want to delete?')">Delete </a>
+</div>

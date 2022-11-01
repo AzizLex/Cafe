@@ -1,0 +1,13 @@
+﻿@model Cafe.Models.Policy
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="container m-top bg-light p-3 mb-0">
+    <h2>@ViewData["Title"]</h2>
+    <p class="lead">@Model.Lead (senast modifierad: @Model.EditDate.ToString("dd MMMM yyyy"))</p>
+    <div class="w-100 policy-text">
+        @Html.Raw(Model.Description)
+    </div>
+</div>

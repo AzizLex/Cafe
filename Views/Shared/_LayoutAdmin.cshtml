@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Havana Café (Admin)</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/admin.css" />
+</head>
+<body>
+    <div id="admin-wrapper" class="d-flex flex-column">
+        <header class="fixed-top">
+            <nav id="admin-navbar" class="navbar navbar-expand-lg navbar-dark py-sm-2 m-sm-0">
+                @if (this.User.IsInRole("Administrator"))
+                {
+                    <div class="container">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <a class="navbar-brand m-0 p-0 m-sm-1 p-sm-1 d-lg-none" asp-area="" asp-controller="Home" asp-action="Index">Havana Café</a>
+
+                        <div id="admin-nav" class="navbar-collapse collapse d-lg-inline-flex justify-content-between">
+                            <a class="navbar-brand m-0 p-0 m-sm-1 p-sm-1 d-none d-lg-block" asp-area="" asp-controller="Home" asp-action="Index">Havana Café</a>
+                            <div class="navbar-nav align-items-center">
+                                <a class="nav-link px-lg-2 mx-lg-2" asp-controller="Admin" asp-action="Menu">Menu</a>
+                                <a class="nav-link px-lg-2 mx-lg-2" asp-controller="Admin" asp-action="Venue">Venues</a>
+                                <a class="nav-link px-lg-2 mx-lg-2" asp-controller="Admin" asp-action="Gallery">Galleries</a>
+                                <a class="nav-link px-lg-2 mx-lg-2" asp-controller="Admin" asp-action="Booking">Bookings</a>
+                                <a class="nav-link px-lg-2 mx-lg-2" asp-controller="Admin" asp-action="Contact">Contacts</a>
+                                <div class="dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="optionsDropDown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Site info
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="Options">Site options</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="ExtraService">Services</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="Policy">Integrity policy</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="About">About Havana Café</a></li>
+                                    </ul>
+                                </div>
+                                <partial name="_UserMenuPartial" />
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <a class="navbar-brand m-0 p-0 m-sm-1 p-sm-1" asp-area="" asp-controller="Home" asp-action="Index">Havana Café</a>
+                }
+            </nav>
+        </header>
+        <div role="main" id="main-section">
+            <div class="admin-m-top container">
+                <div class="row justify-content-lg-center">
+                    <div class="col-lg-8 p-3 pb-4">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

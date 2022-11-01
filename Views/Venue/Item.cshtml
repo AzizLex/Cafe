@@ -1,0 +1,92 @@
+﻿@model Cafe.Models.Venue
+@{
+    string act = "active";
+}
+
+
+<div class="container-fluid m-top">
+    <div class="row">
+        <div class="col p-0">
+            <div id="SlideShow" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    @for (int i = 0; i < Model.Images.Count(); i++)
+                    {
+
+                        if (i == 0)
+                        {
+                            <button type="button" data-bs-target="#SlideShow" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        }
+                        else
+                        {
+                            <button type="button" data-bs-target="#SlideShow" data-bs-slide-to="@i" aria-label="Slide @(i+1)"></button>
+                        }
+                    }
+                </div>
+
+                <div class="carousel-inner">
+
+                    <div class="ratio ratio-21x9">
+
+                        @foreach (var well in Model.Images)
+                        {
+
+                            <div class="carousel-item @act">
+                                <img src="@well.URL" class="d-block w-100 gallery">
+                            </div>
+
+                            act = "";
+                        }
+
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#SlideShow" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#SlideShow" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="container m-top bg-light p-5 mb-0">
+    <div class="row">
+        <div class="col p-3" id="venue-item-name">
+            <h1>@Model.Name</h1>
+            <p>@Model.Description</p>
+            <div class="text-end">
+                <a asp-controller="Booking" asp-action="Index" class="text-decoration-none btn btn-outline-light">Boka din lokal här <i class="bi bi-arrow-right-circle ms-2"></i></a>
+            </div>
+        </div>
+        <div class="row ms-5">
+            <div class="col p-3" id="venue-item-details">
+                <table style="border-spacing:50px;">
+                    <tr>
+                        <td>Area</td>
+                        <td>@Model.Area kvm</td>
+                    </tr>
+                    <tr>
+                        <td>Gäster</td>
+                        <td>@Model.Guests pers.</td>
+                    </tr>
+                    <tr>
+                        <td>Bord</td>
+                        <td>@Model.Table</td>
+                    </tr>
+                    <tr>
+                        <td>Utrustning</td>
+                        <td>@Model.Equipment</td>
+                    </tr>
+                    <tr>
+                        <td>Övrigt</td>
+                        <td>@Model.Other</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

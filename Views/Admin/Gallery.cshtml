@@ -1,0 +1,27 @@
+﻿@model IList<Cafe.Models.Gallery>
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1 class="text-center">Edit galleries</h1>
+<p class="lead text-center">Redigera bildgallerier</p>
+@foreach(var gallery in Model){
+<hr />
+    <h3 class="text-truncate">@gallery.Name</h3>
+    <p>Datum: @gallery.TimeStamp</p>
+    <div class="col-md-6">
+        <p class="lead">Description / Beskrivning:</p> <p class="text-truncate">@gallery.Description</p>
+    </div>
+    <div class="col">
+        <div class="row">
+            <div class="col text-end">
+                <a class="btn btn-primary mx-2" asp-action="GalleryItem" asp-route-id="@gallery.Id">Edit</a>
+                <a class="btn btn-danger" asp-action="GalleryItemDelete" asp-route-id="@gallery.Id" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+            </div>
+        </div>
+    </div>
+}
+<hr />
+<div class="text-start">
+        <a class="btn btn-primary p-2 mx-2" asp-action="GalleryItemAdd">Add a new gallery</a>
+</div>

@@ -1,0 +1,36 @@
+﻿@model List<Cafe.Models.Option>
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1 class="text-center">Options edit</h1>
+<form asp-action="Options" method="post" role="form">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        <div class="form-group d-flex mb-2">
+
+            <input asp-for="@Model[i].Id" class="form-control w-auto" type="text" value="@Model[i].Id" size="1" readonly />
+            <input asp-for="@Model[i].Key" class="form-control w-auto" value="@Model[i].Key" size="10" readonly />
+                <input asp-for="@Model[i].Value" class="form-control " value="@Model[i].Value"/>
+                @if (Model[i].Key == "homeSlide" || Model[i].Key == "venueSlide")
+                {
+                    <button type="button" class="btn btn-primary w-auto urlPic" data-bs-toggle="modal" data-bs-target="#picGallery">Change</button>
+                }
+        </div>
+    }
+
+
+    <div class="modal-footer">
+        <a class="btn btn-outline-secondary" asp-action="Index" onclick="return confirm('Exit without saving changes?')">Cancel</a>
+        <input type="submit" value="Save" class="btn btn-success" onclick="return confirm('Save changes?')" />
+    </div>
+</form>
+<partial name="_PicsPartial" />
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        await Html.RenderPartialAsync("_PicsScriptsPartial");
+    }
+    }

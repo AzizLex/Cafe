@@ -1,0 +1,177 @@
+﻿@model Cafe.Models.ViewModels.AdminMenuVM;
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "Menu";
+
+}
+<h1 class="text-center">Edit menu</h1>
+<p class="lead text-center">Redigera menyn</p>
+<hr />
+<!-- Modal -->
+<div class="modal fade" id="newCategory" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="newCategoryLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-action="Menu" method="post" id="modal">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newCategoryLabel">Add / Edit</h5>
+                    @*<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>*@
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="hidden" id="newCategory_Id" name="newCategory.Id" value="0">
+                        <h6><label asp-for="newCategory.Name" class="form-label">Category</label></h6>
+                        <input asp-for="newCategory.Name" class="form-control" required />
+                        <span asp-validation-for="newCategory.Name" class="text-danger"></span>
+                    </div>
+                    <h6>Sub category</h6>
+                    <div id="subCats" class="ms-4 mb-2">
+                    </div>
+                    <button type="button" class="btn btn-primary" id="addSubCat">Add sub category</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<h3 class="mb-0">Menu categories:</h3>
+<p class="lead mb-4">Kategorier:</p>
+@foreach (var category in Model.Categories ?? new List<MenuCategory>())
+{
+    <div class="d-flex mb-2">
+        <h4 class="category me-auto" id="@category.Id">@category.Name</h4>
+        <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#newCategory" id="edit">Edit</button>
+        <form asp-action="MenuCategoryDel" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" id="categoryId" name="categoryId" value="@category.Id">
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+        </form>
+    </div>
+
+    <div class="sub-category ms-3 mb-3" style="display:none">
+        @foreach (var subCat in category.SubCats ?? new List<MenuSubCat>())
+        {
+            <p class="sub-cat" id="@subCat.Id"><a asp-action="MenuSubCat" asp-route-id="@subCat.Id">@subCat.Name</a></p>
+        }
+    </div>
+}
+<button type="button" class="btn btn-primary float-start" data-bs-toggle="modal" data-bs-target="#newCategory" id="add">
+    Add new category
+</button>
+
+@* ---- TESTING OUT ACCORDION: --- *@
+
+@*
+<hr />
+<div class="accordion accordion-flush" id="accordionFlushExample">
+    @foreach (var category in Model.Categories ?? new List<MenuCategory>())
+    {
+    <div class="accordion-item">
+        <h4 class="accordion-header" id="flush-heading-@category.Id">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-@category.Id" aria-expanded="false" aria-controls="flush-collapse-@category.Id">
+                @category.Name
+            </button>
+        </h4>
+        <div id="flush-collapse-@category.Id" class="accordion-collapse collapse" aria-labelledby="flush-heading-@category.Name" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+                <div>
+                    <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#newCategory" id="edit">Edit</button>
+                    <form asp-action="MenuCategoryDel" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" id="categoryId" name="categoryId" value="@category.Id">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                    </form>
+                </div>
+                <div>
+                    <div class="sub-category ms-3 mb-3" style="display:none">
+                        @foreach (var subCat in category.SubCats ?? new List<MenuSubCat>())
+                        {
+                            <p class="sub-cat" id="@subCat.Id"><a asp-action="MenuSubCat" asp-route-id="@subCat.Id">@subCat.Name</a></p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+</div>
+*@
+
+    @section Scripts{
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+        <script>$(document).ready(function () {
+                $(".category").click(function () {
+                    $(this).toggleClass('is-active').parent().next(".sub-category").slideToggle(500);
+                });
+                $("#newCategory").on('show.bs.modal', function (event) {
+                    var button = event.relatedTarget;
+                    var category = button.previousElementSibling;
+                    if (button.id == "edit") {
+                        var subCats = category.parentElement.nextElementSibling.children;
+                        $("#newCategory_Name").val(category.innerText);
+                        $("#newCategory_Id").val(category.id)
+                        for (let i = 0; i < subCats.length; i++) {
+                            $("#subCats").append(
+                                '<div class="d-flex mb-2">' +
+                                '<input class="sub-cats-id" type="hidden" name="newCategory.subCats[' + i + '].Id" value="' + subCats[i].id + '">' +
+                                '<input class="sub-cats-name form-control me-2" name="newCategory.subCats[' + i + '].Name" value="' + subCats[i].innerText + '" required>' +
+                                '<button type="button" class="btn btn-danger p-2 del-subcat">Delete</button>' +
+                                '</div>'
+                            );
+                        }
+                    };
+
+                    $(".del-subcat").click(function () {
+                        if (confirm("Are you sure?") == true) {
+
+                            $(this).parent().remove();
+                            $(".sub-cats-id").each(function (index) {
+                                $(this).attr('name', 'newCategory.subCats[' + index + '].Id');
+                            });
+                            $(".sub-cats-name").each(function (index) {
+                                $(this).attr('name', 'newCategory.subCats[' + index + '].Name');
+                            });
+                        }
+                    });
+
+                });
+                $("#newCategory").on('hidden.bs.modal', function (event) {
+                    $("#subCats").empty();
+                    $("#newCategory_Name").val("");
+                    $("#newCategory_Id").val("0");
+                });
+
+                $("#addSubCat").click(function () {
+                    var i = $("#subCats").children().length;
+                    $("#subCats").append(
+                        '<div class="d-flex mb-2">' +
+                        '<input class="sub-cats-id" type="hidden" name="newCategory.subCats[' + i + '].Id" value="0">' +
+                        '<input class="sub-cats-name form-control mb-2" name="newCategory.subCats[' + i + '].Name" value="" required>' +
+                        '<button type="button" class="btn btn-danger p-2 del-subcat">Delete</button>' +
+                        '</div>'
+                    );
+                    $(".del-subcat").click(function () {
+                        if (confirm("Are you sure?") == true) {
+
+                            $(this).parent().remove();
+                            $(".sub-cats-id").each(function (index) {
+                                $(this).attr('name', 'newCategory.subCats[' + index + '].Id');
+                            });
+                            $(".sub-cats-name").each(function (index) {
+                                $(this).attr('name', 'newCategory.subCats[' + index + '].Name');
+                            });
+                        }
+                    });
+
+                });
+
+            });
+            $(document).on("keydown", "input", function (event) {
+                return event.key != "Enter";
+            });</script>
+    }
